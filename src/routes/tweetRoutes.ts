@@ -30,15 +30,20 @@ router.get("/", async (req, res) => {
     return res.status(404).json({ error: "Tweet Not Found!" });
   }
   res.json(result);
-  res.status(200);
+  res.sendStatus(200);
 });
 // Get One
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await prisma.tweet.findUnique({ where: { id: Number(id) } });
+    const result = await prisma.tweet.findUnique({
+      where: { id: Number(id) },
+      include: {
+        user: true,
+      },
+    });
     res.json(result);
-    res.status(200);
+    res.sendStatus(200);
   } catch (error) {
     res.send(501).json(error);
   }
@@ -58,7 +63,7 @@ router.put("/:id", async (req, res) => {
       },
     });
     res.json(result);
-    res.status(200);
+    res.sendStatus(200);
   } catch (error) {
     res.send(501).json(error);
   }
@@ -71,7 +76,7 @@ router.delete("/:id", async (req, res) => {
   try {
     const result = await prisma.tweet.delete({ where: { id: Number(id) } });
     res.json(result);
-    res.status(200);
+    res.sendStatus(200);
   } catch (error) {
     res.send(501).json(error);
   }
