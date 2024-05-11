@@ -3,7 +3,7 @@ import userRoutes from "./routes/userRoutes";
 import tweetRoutes from "./routes/tweetRoutes";
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 app.use(express.json());
 app.use("/users", userRoutes);
