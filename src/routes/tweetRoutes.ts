@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
+
 const router = Router();
 const prisma = new PrismaClient();
 
@@ -7,13 +8,16 @@ const prisma = new PrismaClient();
 
 // Create
 router.post("/", async (req, res) => {
-  const { content, image, userId } = req.body;
+  const { content, image } = req.body;
+  //@ts-ignore
+  const user = req.user;
+
   try {
     const result = await prisma.tweet.create({
       data: {
         content,
         image,
-        userId,
+        userId: user.id,
       },
     });
     res.json(result);

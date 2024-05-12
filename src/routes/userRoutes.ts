@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
-import { log } from "console";
 
 const router = Router();
 
@@ -62,7 +61,7 @@ router.put("/:id", async (req, res) => {
     });
     res.json(user);
   } catch (error) {
-    log(error);
+    console.log(error);
     res.status(501).json({ error: "Error in there" });
   }
 });
